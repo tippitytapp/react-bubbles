@@ -8,6 +8,7 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 .App {
@@ -83,7 +84,19 @@ form {
     width: 100px;
   }
 }
-
+.loginForm{
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width:100%;
+  background-image: url("./assets/bubbleslanding.PNG");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.loginInput{
+  width:100%;
+}
 .button-row {
   display: flex;
   justify-content: space-between;

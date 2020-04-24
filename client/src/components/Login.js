@@ -1,38 +1,33 @@
-import React, {useState} from "react";
-import axios from "axios";
-import {useHistory} from 'react-router-dom';
+import React, { useState } from "react";
+import axios from 'axios';
 
-const Login = () => {
 
-  const [user, setUser] = useState({})
-  const {push} = useHistory()
-
-  const inputChange = event => {
-    setUser({
-      ...user,
-      [event.target.name]: event.target.value
-    })
-  }
-
-  const loginHandler = event => {
-    event.preventDefault();
-    axios.post(`http://localhost:5000/api/login`, user)
-    .then(res => {
-      console.log('Response from LoginHandler', res.data.payload);
-      localStorage.setItem('token', res.data.payload)
-      push("/bubble-page")
-
-    })
-    .catch(err => {
-      console.log('Error from Loginhandler', err)
-    })
-  }
+const Login = props => {
   // make a post request to retrieve a token from the api
   // when you have handled the token, navigate to the BubblePage route
-// console.log(user);
+  const [ user, setUser ] = useState({});
+
+
+  const inputChange = e => {
+    setUser ({
+      ...user,
+      [e.target.name] : e.target.value
+    })
+  }
+  console.log(user)
+  const loginHandler = e => {
+    e.preventDefault();
+    axios
+    .post(`http://localhost:5000/api/login`, user)
+    .then(res => {
+      localStorage.setItem('token',res.data.payload)
+      props.history.push('/bubble-page')
+    })
+    .catch(err => console.log(err))
+  }
   return (
-    <>
-      <h1>Welcome to the Bubble App!</h1>
+    <div className="loginForm">
+
       <form onSubmit={loginHandler}>
         <h3>Log In Below</h3>
         <label 
@@ -40,6 +35,7 @@ const Login = () => {
         >Username:
         </label>
         <input 
+          className="loginInput"
           type="text" 
           name="username" 
           id="username" 
@@ -51,6 +47,7 @@ const Login = () => {
         >Password:
         </label>
         <input
+          className="loginInput"
           type="password"
           name="password"
           id="password"
@@ -59,7 +56,7 @@ const Login = () => {
         />
         <button>Log In</button>
       </form>
-    </>
+    </div>
   );
 };
 
