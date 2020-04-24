@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Pack } from "@potion/layout";
 import { Svg, Circle } from "@potion/element";
+import {useHistory} from "react-router-dom"
 
 const Bubbles = ({ colors }) => {
   const [bubbleData, setBubbleData] = useState([]);
@@ -11,10 +12,15 @@ const Bubbles = ({ colors }) => {
     }));
     setBubbleData(generateBubbleData);
   }, [colors]);
-
+const {push} = useHistory();
   return (
     <div className="bubble-wrap">
+    <button onClick={()=>{
+      localStorage.removeItem('token')
+      push('/')
+    }}>LogOut</button>
       <p>bubbles</p>
+
       <Svg width={400} height={400}>
         <Pack
           data={{
